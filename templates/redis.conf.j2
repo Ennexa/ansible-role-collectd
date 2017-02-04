@@ -1,0 +1,9 @@
+LoadPlugin redis
+
+<Plugin redis>
+   <Node local>
+      Host "{{ collectd_redis_host }}"
+      Port "{{ collectd_redis_port }}"
+      Timeout 2000
+   </Node>
+</Plugin>

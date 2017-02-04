@@ -1,0 +1,17 @@
+- name: Install Collectd packages
+  yum: name={{ item }} state=installed enablerepo=epel
+  with_items:
+   - collectd
+   - collectd-apache
+   - collectd-curl_json
+   - collectd-mysql
+   - collectd-redis
+   - MySQL-python
+  when: ansible_os_family == 'RedHat'  
+
+- name: Install Collectd packages
+  apt: name={{ item }} state=installed
+  with_items:
+   - collectd
+   - python-mysqldb
+  when: ansible_os_family == 'Debian'  

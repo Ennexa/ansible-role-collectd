@@ -1,0 +1,23 @@
+---
+# - name: Install Collect package
+  # yum: name=mongodb-org state=installed
+
+- include: install.yml
+
+- name: Create mysql user
+  mysql_user: user=collectd host="localhost" password=collectd.pass priv="*.*:replication client"
+
+- name: Update configuration
+  template: src={{ item }}.j2 dest=/etc/collectd.d/{{ item }}.conf owner=collectd group=collectd mode=0644
+  with_items:
+      - "{{ collectd_plugins }}"
+  notify:
+  - restart collectd
+
+# - name: Update configuration
+#   copy: src={{ item.src }} dest={{ item.dest }} mode=0644
+#   with_items:
+#       #- { src: elasticsearch.yml, dest: /etc/elasticsearch/ }
+#       - { src: collectd.d, dest: /etc/ }
+#   notify:
+#   - restart collectd

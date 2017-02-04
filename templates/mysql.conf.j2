@@ -1,0 +1,10 @@
+LoadPlugin mysql
+
+<Plugin mysql>
+	<Database "local">
+		Host "{{ collectd_mysql_host }}"
+		User "{{ collectd_mysql_user }}"
+		Password "{{ collectd_mysql_pass }}"
+		#MasterStats true
+	</Database>
+</Plugin>

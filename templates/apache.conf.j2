@@ -1,0 +1,12 @@
+# LoadPlugin apache
+
+<LoadPlugin apache>
+    Interval 1
+</LoadPlugin> 
+
+<Plugin apache>
+ <Instance "local">
+   URL "{{ collectd_apache_url }}"
+   Server "apache"
+ </Instance>
+</Plugin>

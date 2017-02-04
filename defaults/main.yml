@@ -1,0 +1,24 @@
+collectd_plugins:
+  - apache
+  - df
+  - graphite
+  - interface
+  - memcached
+  - mysql
+  - redis
+  - statsd
+  - uptime
+
+collectd_mysql_host: localhost
+collectd_mysql_user: collectd
+collectd_mysql_pass: collectd
+
+collectd_redis_host: localhost
+collectd_redis_port: 6379
+
+collectd_graphite_prefix: collectd.
+collectd_graphite_protocol: tcp
+collectd_graphite_port: 2003
+collectd_graphite_host: localhost
+
+collectd_apache_url: http://localhost/server-status?auto
