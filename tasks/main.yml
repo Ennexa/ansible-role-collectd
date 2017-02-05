@@ -7,8 +7,11 @@
 - name: Create mysql user
   mysql_user: user=collectd host="localhost" password=collectd.pass priv="*.*:replication client"
 
+- name: create collectd config directory
+  file: path="/etc/collectd.d" state=directory
+
 - name: Update configuration
-  template: src={{ item }}.j2 dest=/etc/collectd.d/{{ item }}.conf owner=collectd group=collectd mode=0644
+  template: src={{ item }}.conf.j2 dest=/etc/collectd.d/{{ item }}.conf owner=collectd group=collectd mode=0644
   with_items:
       - "{{ collectd_plugins }}"
   notify:
