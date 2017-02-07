@@ -1,3 +1,6 @@
+collectd_timeout: 2
+collectd_readthreads: 5
+
 collectd_plugins:
   - apache
   - cpu
@@ -37,10 +40,10 @@ collectd_disk_ignore_selected: false
 
 collectd_graphite_instances:
   - name: graphing
+    host: localhost
+    port: 2003
     prefix: collectd.
     protocol: tcp
-    port: 2003
-    host: localhost
 
 collectd_interface_interfaces: eth0
 collectd_interface_ignore_selected: false
@@ -48,9 +51,16 @@ collectd_interface_ignore_selected: false
 collectd_mysql_instances:
   - name: local
     host: localhost
+    port: 3306
     user: collectd
     pass: collectd
-    create: true
+    connect_timeout: 10
+    innodb_stats: false
+    master_stats: false
+    slave_stats: false
+    slave_notifications: false
+    
+    create_user: true
 
 collectd_netlink_interfaces: []
 collectd_netlink_verbose_interfaces: []

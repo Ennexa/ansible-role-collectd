@@ -2,13 +2,15 @@ LoadPlugin write_graphite
 
 <Plugin write_graphite>
 {% for instance in collectd_graphite_instances %}
-  <Node "{{ instance['name'] }}">
-    Host "{{ instance['host'] }}"
-    Port "{{ instance['port'] }}"
-	Protocol "{{ instance['protocol'] }}"
-	LogSendErrors {{ instance['log_send_errors'] | default(false) }}
-	Prefix "{{ instance['prefix'] }}"
+  <Node "{{ instance['name'] | default('local') }}">
+    Host "{{ instance['host'] | default('localhost') }}"
+    Port "{{ instance['port'] | default(2003) }}"
+	Protocol "{{ instance['protocol'] | default('tcp') }}"
+	LogSendErrors {{ instance['log_send_errors'] | default(true) }}
+	Prefix "{{ instance['prefix'] | default('') }}"
+	Postfix "{{ instance['postfix'] | default('') }}"
 	StoreRates {{ instance['store_rates'] | default(false) }}
+	SeparateInstances {{ instance['separate_instances'] | default(false) }}
 	AlwaysAppendDS {{ instance['always_append_ds'] | default(false) }}
 	EscapeCharacter "{{ instance['escape_character'] | default('_') }}"
   </Node>

@@ -8,15 +8,26 @@
   mysql_user: host="{{ item['host'] }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
   with_items:
     - "{{ collectd_mysql_instances }}"
-  when: "{{ item['create'] }}"
+  when: item['create_user'] is defined and item['create_user']
 
 - name: create collectd config directory
   file: path="/etc/collectd.d" state=directory
 
 - name: Update configuration
   template: 
+    src: "collectd.conf.j2"
+    dest: "/etc/collectd.d/10_collectd.conf"
+    validate: 'collectd -t -C %s'
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - restart collectd
+
+- name: Update configuration
+  template: 
     src: "{{ item }}.conf.j2"
-    dest: "/etc/collectd.d/{{ item }}.conf"
+    dest: "/etc/collectd.d/20_{{ item }}.conf"
     validate: 'collectd -t -C %s'
     owner: root
     group: root
@@ -25,6 +36,19 @@
       - "{{ collectd_plugins + collectd_extra_plugins }}"
   notify:
   - restart collectd
+
+- name: Update configuration
+  template: 
+    src: "chains.conf.j2"
+    dest: "/etc/collectd.d/30_chains.conf"
+    validate: 'collectd -t -C %s'
+    owner: root
+    group: root
+    mode: 0644
+  when: collectd_chains is defined
+  notify:
+  - restart collectd
+
 
 # - name: Update configuration
 #   copy: src={{ item.src }} dest={{ item.dest }} mode=0644

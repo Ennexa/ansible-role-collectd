@@ -1,5 +1,3 @@
-# LoadPlugin apache
-
 <LoadPlugin apache>
     Interval {{ collectd_apache_interval }}
 </LoadPlugin> 
@@ -11,5 +9,4 @@
     Server "{{ instance['server'] | default('apache') }}"
   </Instance>
 {% endfor %}
-
 </Plugin>

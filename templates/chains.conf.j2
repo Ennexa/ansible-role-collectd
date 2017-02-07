@@ -1,0 +1,31 @@
+{% for chain in collectd_chains %}
+<Chain "{{ chain['type'] }}">
+{% for rule in chain['rules'] %}
+  <Rule>
+      <Match "{{ rule['type'] }}">
+{% for key, value in rule['match'].iteritems() %}
+          {{ key }} "{{ value }}"
+{% endfor %}
+      </Match>
+{% for target in rule['target'] %}
+{% if target is mapping %}
+      <Target "{{ target['type'] }}">
+          Plugin "{{ target['plugin'] }}"
+      </Target>
+{% elif target is defined %}
+      Target {{ target }}
+{% endif %}
+{% endfor %}
+  </Rule>
+{% endfor %}
+{% for target in chain['target'] %}
+{% if target is mapping %}
+    <Target "{{ target['type'] }}">
+        Plugin "{{ target['plugin'] }}"
+    </Target>
+{% elif target is defined %}
+  Target {{ target }}
+{% endif %}
+{% endfor %}
+</Chain>
+{% endfor %}

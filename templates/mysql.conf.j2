@@ -3,11 +3,21 @@ LoadPlugin mysql
 <Plugin mysql>
 {% for instance in collectd_mysql_instances %}
   <Database "{{ instance['name'] }}">
-    Host "{{ instance['host'] }}"
+{% if instance['socket'] is defined %}
+    Alias "{{ instance['alias'] }}"
+{% endif %}
+    Host "{{ instance['host'] | default('localhost') }}"
     User "{{ instance['user'] }}"
     Password "{{ instance['pass'] }}"
+    Port "{{ instance['port'] | default(3306) }}"
+{% if instance['socket'] is defined %}
+    Socket "{{ instance['socket'] }}"
+{% endif %}
+    ConnectTimeout "{{ instance['connect_timeout'] | default(10) }}"
+    InnodbStats {{ instance['innodb_stats'] | default('false') }}
     MasterStats {{ instance['master_stats'] | default('false') }}
+    SlaveStats {{ instance['slave_stats'] | default('false') }}
+    SlaveNotifications {{ instance['slave_notifications'] | default('false') }}
   </Database>
 {% endfor %}
-
 </Plugin>

@@ -6,6 +6,7 @@
    - collectd-curl_json
    - collectd-mysql
    - collectd-redis
+   - collectd-netlink
    - MySQL-python
   when: ansible_os_family == 'RedHat'  
 

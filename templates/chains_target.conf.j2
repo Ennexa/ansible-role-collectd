@@ -1,0 +1,9 @@
+{{% if target is mapping %}}
+  <Target "{{ target['type'] }}">
+{% for key, value in target['options'].iteritems() %}
+   {{ key }} {{ value }}
+{% endfor %}
+  </Target>
+{{% elseif target is defined %}}
+  Target {{ chain['target'] }}
+{{% endif %}}

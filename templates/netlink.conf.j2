@@ -1,3 +1,4 @@
+LoadPlugin netlink
 <Plugin netlink>
 {% for iface in collectd_netlink_interfaces %}
    Interface "{{ iface }}"
