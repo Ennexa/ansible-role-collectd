@@ -1,10 +1,13 @@
 LoadPlugin mysql
 
 <Plugin mysql>
-	<Database "local">
-		Host "{{ collectd_mysql_host }}"
-		User "{{ collectd_mysql_user }}"
-		Password "{{ collectd_mysql_pass }}"
-		#MasterStats true
-	</Database>
+{% for instance in collectd_mysql_instances %}
+  <Database "{{ instance['name'] }}">
+    Host "{{ instance['host'] }}"
+    User "{{ instance['user'] }}"
+    Password "{{ instance['pass'] }}"
+    MasterStats {{ instance['master_stats'] | default('false') }}
+  </Database>
+{% endfor %}
+
 </Plugin>

@@ -1,0 +1,9 @@
+<Plugin netlink>
+{% for iface in collectd_netlink_interfaces %}
+   Interface "{{ iface }}"
+{% endfor %}
+{% for iface in collectd_netlink_verbose_interfaces %}
+   VerboseInterface "{{ iface }}"
+{% endfor %}
+   IgnoreSelected {{ collectd_netlink_ignore_selected | default (false) }}
+</Plugin>

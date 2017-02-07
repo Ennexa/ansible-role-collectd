@@ -1,15 +1,17 @@
 LoadPlugin write_graphite
 
 <Plugin write_graphite>
-	<Node "graphing">
-		Host "{{ collectd_graphite_host }}"
-		Port "{{ collectd_graphite_port }}"
-		Protocol "{{ collectd_graphite_protocol }}"
-		LogSendErrors true
-		Prefix "{{ collectd_graphite_prefix }}"
-		StoreRates true
-		AlwaysAppendDS false
-		EscapeCharacter "_"
-	</Node>
+{% for instance in collectd_graphite_instances %}
+  <Node "{{ instance['name'] }}">
+    Host "{{ instance['host'] }}"
+    Port "{{ instance['port'] }}"
+	Protocol "{{ instance['protocol'] }}"
+	LogSendErrors {{ instance['log_send_errors'] | default(false) }}
+	Prefix "{{ instance['prefix'] }}"
+	StoreRates {{ instance['store_rates'] | default(false) }}
+	AlwaysAppendDS {{ instance['always_append_ds'] | default(false) }}
+	EscapeCharacter "{{ instance['escape_character'] | default('_') }}"
+  </Node>
+{% endfor %}
 </Plugin>
 

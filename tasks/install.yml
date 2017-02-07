@@ -1,5 +1,5 @@
 - name: Install Collectd packages
-  yum: name={{ item }} state=installed enablerepo=epel
+  yum: name={{ item }} state=present enablerepo=epel
   with_items:
    - collectd
    - collectd-apache
@@ -10,7 +10,7 @@
   when: ansible_os_family == 'RedHat'  
 
 - name: Install Collectd packages
-  apt: name={{ item }} state=installed
+  apt: name={{ item }} state=present
   with_items:
    - collectd
    - python-mysqldb

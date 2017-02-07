@@ -1,0 +1,13 @@
+<Plugin aggregation>
+{% for instance in collectd_apache_instances %}
+  <Aggregation>
+    Plugin "{{ instance['plugin'] }}"
+    Type "{{ instance['type'] }}"
+  {% for group_by in instance['group_by'] %}
+    GroupBy "{{ group_by }}"
+  {% endfor %}
+    CalculateAverage {{ instance['calculate_average'] | default(true) }}
+  </Aggregation>
+{% endfor %}
+
+</Plugin>

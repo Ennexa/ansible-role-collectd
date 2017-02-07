@@ -1,0 +1,6 @@
+{% for exec in collectd_exec_commands %}
+<Plugin exec>
+  Exec "{{ exec['user'] }}" "{{ exec['cmd'] }}"
+</Plugin>
+{% endfor %}
+

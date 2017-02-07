@@ -1,4 +1,6 @@
 <Plugin "interface">
-    Interface "eth0"
-    IgnoreSelected false
+{% for device in collectd_interface_interfaces %}
+   Interface "{{ device }}"
+{% endfor %}
+   IgnoreSelected {{ collectd_interface_ignore_selected }}
 </Plugin>

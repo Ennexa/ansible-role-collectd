@@ -5,15 +5,24 @@
 - include: install.yml
 
 - name: Create mysql user
-  mysql_user: user=collectd host="localhost" password=collectd.pass priv="*.*:replication client"
+  mysql_user: host="{{ item['host'] }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
+  with_items:
+    - "{{ collectd_mysql_instances }}"
+  when: "{{ item['create'] }}"
 
 - name: create collectd config directory
   file: path="/etc/collectd.d" state=directory
 
 - name: Update configuration
-  template: src={{ item }}.conf.j2 dest=/etc/collectd.d/{{ item }}.conf owner=collectd group=collectd mode=0644
+  template: 
+    src: "{{ item }}.conf.j2"
+    dest: "/etc/collectd.d/{{ item }}.conf"
+    validate: 'collectd -t -C %s'
+    owner: root
+    group: root
+    mode: 0644
   with_items:
-      - "{{ collectd_plugins }}"
+      - "{{ collectd_plugins + collectd_extra_plugins }}"
   notify:
   - restart collectd
 

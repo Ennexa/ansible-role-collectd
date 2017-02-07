@@ -1,6 +1,6 @@
-#LoadPlugin df
+LoadPlugin df
 #
-#<Plugin "df">
+<Plugin "df">
 #    Device "/dev/sda2"
 #    Device "/dev/sda3"
 #    Device "/dev/sda5"
@@ -8,12 +8,19 @@
 #    Device "/dev/sda8"
 #    Device "/dev/sdb1"
 #    Device "/dev/sdc1"
-#    MountPoint "/"
-#    FSType "ext4"
-#    IgnoreSelected false
-#    ReportByDevice false
-#    # ReportReserved false
-#    ReportInodes false
-#    ValuesAbsolute true
-#    ValuesPercentage false
-#</Plugin>
+{% for device in collectd_df_devices %}
+   Device "{{ device }}"
+{% endfor %}
+{% for mountpoint in collectd_df_mountpoints %}
+   MountPoint "{{ mountpoint }}"
+{% endfor %}
+{% for fstype in collectd_df_fstypes %}
+   FSType {{ fstype }}
+{% endfor %}
+   IgnoreSelected {{ collectd_df_ignore_selected }}
+   ReportByDevice {{ collectd_df_report_by_device }}
+   ReportReserved {{ collectd_df_report_reserved }}
+   ReportInodes {{ collectd_df_report_inodes }}
+   ValuesAbsolute {{ collectd_df_values_absolute }}
+   ValuesPercentage {{ collectd_df_values_percentage }}
+</Plugin>

@@ -1,12 +1,15 @@
 # LoadPlugin apache
 
 <LoadPlugin apache>
-    Interval 1
+    Interval {{ collectd_apache_interval }}
 </LoadPlugin> 
 
 <Plugin apache>
- <Instance "local">
-   URL "{{ collectd_apache_url }}"
-   Server "apache"
- </Instance>
+{% for instance in collectd_apache_instances %}
+  <Instance "{{ instance['name'] }}">
+    URL "{{ instance['url'] }}"
+    Server "{{ instance['server'] | default('apache') }}"
+  </Instance>
+{% endfor %}
+
 </Plugin>

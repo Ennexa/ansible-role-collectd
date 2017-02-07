@@ -1,0 +1,6 @@
+<Plugin "disk">
+{% for disk in collectd_disk_disks %}
+   Disk "{{ disk }}"
+{% endfor %}
+   IgnoreSelected {{ collectd_disk_ignore_selected }}
+</Plugin>

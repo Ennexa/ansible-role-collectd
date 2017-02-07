@@ -1,24 +1,67 @@
 collectd_plugins:
   - apache
+  - cpu
   - df
   - graphite
   - interface
   - memcached
   - mysql
   - redis
-  - statsd
+  - swap
   - uptime
+  # - statsd
+collectd_extra_plugins: []
 
-collectd_mysql_host: localhost
-collectd_mysql_user: collectd
-collectd_mysql_pass: collectd
+collectd_apache_interval: 1
+collectd_apache_instances:
+  - name: local
+    url: http://localhost/server-status?auto
+    type: apache
 
-collectd_redis_host: localhost
-collectd_redis_port: 6379
+collectd_df_devices:
+  - /dev/sda1
+collectd_df_mountpoints: 
+  - /
+collectd_df_fstypes:
+  - ext4
+collectd_df_ignore_selected: false
+collectd_df_report_reserved: false
+collectd_df_report_by_device: false
+collectd_df_report_inodes: false
+collectd_df_values_absolute: true
+collectd_df_values_percentage: false
 
-collectd_graphite_prefix: collectd.
-collectd_graphite_protocol: tcp
-collectd_graphite_port: 2003
-collectd_graphite_host: localhost
 
-collectd_apache_url: http://localhost/server-status?auto
+collectd_disk_disks: []
+collectd_disk_ignore_selected: false
+
+collectd_graphite_instances:
+  - name: graphing
+    prefix: collectd.
+    protocol: tcp
+    port: 2003
+    host: localhost
+
+collectd_interface_interfaces: eth0
+collectd_interface_ignore_selected: false
+
+collectd_mysql_instances:
+  - name: local
+    host: localhost
+    user: collectd
+    pass: collectd
+    create: true
+
+collectd_netlink_interfaces: []
+collectd_netlink_verbose_interfaces: []
+collectd_netlink_ignore_selected: false
+
+
+collectd_redis_instances:
+  - name: local
+    host: localhost
+    port: 6379
+
+collectd_statsd_host: localhost
+collectd_statsd_port: 8125
+

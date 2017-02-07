@@ -1,8 +1,8 @@
-# LoadPlugin write_statsd
-#
-# <Plugin statsd>
-#   Host "stats.ennexa.com"
-#   Port "8125"
-#   DeleteSets     true
-#   TimerPercentile 90.0
-# </Plugin>
+LoadPlugin write_statsd
+
+<Plugin statsd>
+  Host "{{ collectd_statsd_host }}"
+  Port "{{ collectd_statsd_port }}"
+  DeleteSets     true
+  TimerPercentile 90.0
+</Plugin>
