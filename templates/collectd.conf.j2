@@ -1,2 +1,3 @@
 Timeout "{{ collectd_timeout }}"
 ReadThreads "{{ collectd_readthreads }}"
+AutoLoadPlugin {{ collectd_autoload_plugins | default(false) }}
