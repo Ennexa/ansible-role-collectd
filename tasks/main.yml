@@ -41,7 +41,7 @@
   template: 
     src: "chains.conf.j2"
     dest: "/etc/collectd.d/30_chains.conf"
-    validate: 'collectd -t -C %s'
+    # validate: 'collectd -t -C %s' # Validation fails since the dependent plugins are not loaded
     owner: root
     group: root
     mode: 0644
