@@ -2,5 +2,5 @@
 {% for disk in collectd_disk_disks %}
    Disk "{{ disk }}"
 {% endfor %}
-   IgnoreSelected {{ collectd_disk_ignore_selected }}
+   IgnoreSelected {{ collectd_disk_ignore_selected | lower }}
 </Plugin>

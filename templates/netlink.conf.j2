@@ -6,5 +6,5 @@ LoadPlugin netlink
 {% for iface in collectd_netlink_verbose_interfaces %}
    VerboseInterface "{{ iface }}"
 {% endfor %}
-   IgnoreSelected {{ collectd_netlink_ignore_selected | default (false) }}
+   IgnoreSelected {{ collectd_netlink_ignore_selected | default (false) | lower }}
 </Plugin>

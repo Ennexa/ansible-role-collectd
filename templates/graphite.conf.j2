@@ -6,12 +6,12 @@ LoadPlugin write_graphite
     Host "{{ instance['host'] | default('localhost') }}"
     Port "{{ instance['port'] | default(2003) }}"
 	Protocol "{{ instance['protocol'] | default('tcp') }}"
-	LogSendErrors {{ instance['log_send_errors'] | default(true) }}
+	LogSendErrors {{ instance['log_send_errors'] | default(true) | lower }}
 	Prefix "{{ instance['prefix'] | default('') }}"
 	Postfix "{{ instance['postfix'] | default('') }}"
-	StoreRates {{ instance['store_rates'] | default(false) }}
-	SeparateInstances {{ instance['separate_instances'] | default(false) }}
-	AlwaysAppendDS {{ instance['always_append_ds'] | default(false) }}
+	StoreRates {{ instance['store_rates'] | default(false) | lower }}
+	SeparateInstances {{ instance['separate_instances'] | default(false) | lower }}
+	AlwaysAppendDS {{ instance['always_append_ds'] | default(false) | lower }}
 	EscapeCharacter "{{ instance['escape_character'] | default('_') }}"
   </Node>
 {% endfor %}

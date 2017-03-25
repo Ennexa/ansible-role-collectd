@@ -28,7 +28,7 @@ collectd_df_mountpoints:
 collectd_df_fstypes:
   - ext4
 collectd_df_ignore_selected: false
-collectd_df_report_reserved: false
+# collectd_df_report_reserved: false
 collectd_df_report_by_device: false
 collectd_df_report_inodes: false
 collectd_df_values_absolute: true

@@ -8,7 +8,7 @@ LoadPlugin "aggregation"
 {% for group_by in instance['group_by'] %}
     GroupBy "{{ group_by }}"
 {% endfor %}
-    CalculateAverage {{ instance['calculate_average'] | default(true) }}
+    CalculateAverage {{ instance['calculate_average'] | default(true) | lower }}
   </Aggregation>
 {% endfor %}
 

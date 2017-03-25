@@ -2,5 +2,5 @@
 {% for device in collectd_interface_interfaces %}
    Interface "{{ device }}"
 {% endfor %}
-   IgnoreSelected {{ collectd_interface_ignore_selected }}
+   IgnoreSelected {{ collectd_interface_ignore_selected | lower }}
 </Plugin>

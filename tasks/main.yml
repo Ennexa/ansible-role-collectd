@@ -1,7 +1,7 @@
 ---
-# - name: Install Collect package
-  # yum: name=mongodb-org state=installed
+- include_vars: "{{ ansible_os_family }}.yml"
 
+# Setup/install tasks.
 - include: install.yml
 
 - name: Create mysql user
@@ -11,12 +11,12 @@
   when: item['create_user'] is defined and item['create_user']
 
 - name: create collectd config directory
-  file: path="/etc/collectd.d" state=directory
+  file: path="{{ collectd_conf_include_dir }}" state=directory
 
 - name: Update configuration
   template: 
     src: "collectd.conf.j2"
-    dest: "/etc/collectd.d/10_collectd.conf"
+    dest: "{{ collectd_conf_include_dir }}/10_collectd.conf"
     validate: 'collectd -t -C %s'
     owner: root
     group: root
@@ -27,7 +27,7 @@
 - name: Update configuration
   template: 
     src: "{{ item }}.conf.j2"
-    dest: "/etc/collectd.d/20_{{ item }}.conf"
+    dest: "{{ collectd_conf_include_dir }}/20_{{ item }}.conf"
     validate: 'collectd -t -C %s'
     owner: root
     group: root
@@ -40,7 +40,7 @@
 - name: Update configuration
   template: 
     src: "chains.conf.j2"
-    dest: "/etc/collectd.d/30_chains.conf"
+    dest: "{{ collectd_conf_include_dir }}/30_chains.conf"
     # validate: 'collectd -t -C %s' # Validation fails since the dependent plugins are not loaded
     owner: root
     group: root

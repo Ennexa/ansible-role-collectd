@@ -17,10 +17,12 @@ LoadPlugin df
 {% for fstype in collectd_df_fstypes %}
    FSType {{ fstype }}
 {% endfor %}
-   IgnoreSelected {{ collectd_df_ignore_selected }}
-   ReportByDevice {{ collectd_df_report_by_device }}
-   ReportReserved {{ collectd_df_report_reserved }}
-   ReportInodes {{ collectd_df_report_inodes }}
-   ValuesAbsolute {{ collectd_df_values_absolute }}
-   ValuesPercentage {{ collectd_df_values_percentage }}
+   IgnoreSelected {{ collectd_df_ignore_selected | lower }}
+   ReportByDevice {{ collectd_df_report_by_device | lower }}
+{% if collectd_df_report_reserved is defined %}
+   ReportReserved {{ collectd_df_report_reserved | lower }}
+{% endif %}
+   ReportInodes {{ collectd_df_report_inodes | lower }}
+   ValuesAbsolute {{ collectd_df_values_absolute | lower }}
+   ValuesPercentage {{ collectd_df_values_percentage | lower }}
 </Plugin>

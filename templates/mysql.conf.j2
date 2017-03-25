@@ -13,11 +13,11 @@ LoadPlugin mysql
 {% if instance['socket'] is defined %}
     Socket "{{ instance['socket'] }}"
 {% endif %}
-    ConnectTimeout "{{ instance['connect_timeout'] | default(10) }}"
-    InnodbStats {{ instance['innodb_stats'] | default('false') }}
-    MasterStats {{ instance['master_stats'] | default('false') }}
-    SlaveStats {{ instance['slave_stats'] | default('false') }}
-    SlaveNotifications {{ instance['slave_notifications'] | default('false') }}
+    ConnectTimeout {{ instance['connect_timeout'] | default(10) }}
+    InnodbStats {{ instance['innodb_stats'] | default('false') | lower }}
+    MasterStats {{ instance['master_stats'] | default('false') | lower }}
+    SlaveStats {{ instance['slave_stats'] | default('false') | lower }}
+    SlaveNotifications {{ instance['slave_notifications'] | default('false') | lower }}
   </Database>
 {% endfor %}
 </Plugin>
