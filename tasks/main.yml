@@ -8,7 +8,7 @@
   mysql_user: host="{{ item['host'] }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
   with_items:
     - "{{ collectd_mysql_instances }}"
-  when: item['create_user'] is defined and item['create_user']
+  when: "'mysql' in collectd_plugins + collectd_extra_plugins and item['create_user'] is defined and item['create_user']"
 
 - name: create collectd config directory
   file: path="{{ collectd_conf_include_dir }}" state=directory
@@ -48,12 +48,3 @@
   when: collectd_chains is defined
   notify:
   - restart collectd
-
-
-# - name: Update configuration
-#   copy: src={{ item.src }} dest={{ item.dest }} mode=0644
-#   with_items:
-#       #- { src: elasticsearch.yml, dest: /etc/elasticsearch/ }
-#       - { src: collectd.d, dest: /etc/ }
-#   notify:
-#   - restart collectd
