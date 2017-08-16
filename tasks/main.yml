@@ -5,7 +5,7 @@
 - include: install.yml
 
 - name: Create mysql user
-  mysql_user: host="{{ item['host'] }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
+  mysql_user: host="{{ item['host'] | default('localhost') }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
   with_items:
     - "{{ collectd_mysql_instances }}"
   when: "'mysql' in collectd_plugins + collectd_extra_plugins and item['create_user'] is defined and item['create_user']"
