@@ -1,0 +1,7 @@
+{% for key,val in item.entries.iteritems() %}
+{% if val is string %}
+{{ key }}		{{ val }}
+{% else %}
+{{ key }}		{{ val|join(', ') }}
+{% endif %}
+{% endfor %}

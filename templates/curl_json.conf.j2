@@ -1,0 +1,19 @@
+LoadPlugin "curl_json"
+
+<Plugin curl_json>
+{% for instance in collectd_curl_json %}
+  <URL "{{ instance['url'] }}">
+    {% if instance['instance'] is defined %}
+    Instance "{{ instance['instance'] }}"
+    {% endif %}
+    {% for key in instance['keys'] %}
+    <Key "{{ key['name'] }}">
+        Type "{{ key['type'] }}"
+	    {% if key['instance'] is defined %}
+	    Instance "{{ key['instance'] }}"
+	    {% endif %}
+    </Key>
+    {% endfor %}
+  </URL>
+{% endfor %}
+</Plugin>

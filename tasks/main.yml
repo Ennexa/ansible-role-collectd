@@ -13,8 +13,20 @@
 - name: create collectd config directory
   file: path="{{ collectd_conf_include_dir }}" state=directory
 
+- name: Custom types definitions
+  template:
+    src: "types.db.j2"
+    dest: "{{ collectd_conf_include_dir }}/{{ item['name'] }}.db"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ collectd_type_dbs }}"
+  notify:
+    - restart collectd
+
 - name: Update configuration
-  template: 
+  template:
     src: "collectd.conf.j2"
     dest: "{{ collectd_conf_include_dir }}/10_collectd.conf"
     validate: 'collectd -t -C %s'
@@ -22,10 +34,10 @@
     group: root
     mode: 0644
   notify:
-  - restart collectd
+    - restart collectd
 
 - name: Update configuration
-  template: 
+  template:
     src: "{{ item }}.conf.j2"
     dest: "{{ collectd_conf_include_dir }}/20_{{ item }}.conf"
     validate: 'collectd -t -C %s'
@@ -33,12 +45,12 @@
     group: root
     mode: 0644
   with_items:
-      - "{{ collectd_plugins + collectd_extra_plugins }}"
+    - "{{ collectd_plugins + collectd_extra_plugins }}"
   notify:
-  - restart collectd
+    - restart collectd
 
 - name: Update configuration
-  template: 
+  template:
     src: "chains.conf.j2"
     dest: "{{ collectd_conf_include_dir }}/30_chains.conf"
     # validate: 'collectd -t -C %s' # Validation fails since the dependent plugins are not loaded
@@ -47,4 +59,4 @@
     mode: 0644
   when: collectd_chains is defined
   notify:
-  - restart collectd
+    - restart collectd

@@ -23,7 +23,7 @@ collectd_apache_instances:
 
 collectd_df_devices:
   - /dev/sda1
-collectd_df_mountpoints: 
+collectd_df_mountpoints:
   - /
 collectd_df_fstypes:
   - ext4
@@ -59,7 +59,7 @@ collectd_mysql_instances:
     master_stats: false
     slave_stats: false
     slave_notifications: false
-    
+
     create_user: true
 
 collectd_netlink_interfaces: []
@@ -75,3 +75,5 @@ collectd_redis_instances:
 collectd_statsd_host: localhost
 collectd_statsd_port: 8125
 
+collectd_type_dbs: []
+collectd_curl_json: []
