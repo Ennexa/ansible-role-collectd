@@ -75,5 +75,6 @@ collectd_redis_instances:
 collectd_statsd_host: localhost
 collectd_statsd_port: 8125
 
+collectd_type_default_db: /usr/share/collectd/types.db
 collectd_type_dbs: []
 collectd_curl_json: []

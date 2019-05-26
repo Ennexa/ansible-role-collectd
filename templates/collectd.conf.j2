@@ -2,6 +2,7 @@ Timeout "{{ collectd_timeout }}"
 ReadThreads "{{ collectd_readthreads }}"
 AutoLoadPlugin {{ collectd_autoload_plugins | default(false) | lower }}
 
+TypesDB "{{ collectd_type_default_db }}"
 {% for type in collectd_type_dbs %}
 TypesDB "{{ collectd_conf_include_dir }}/{{ type['name'] }}.db"
 {% endfor %}
