@@ -3,7 +3,7 @@
 {% for rule in chain['rules'] %}
   <Rule>
       <Match "{{ rule['type'] }}">
-{% for key, value in rule['match'].iteritems() %}
+{% for key, value in rule['match'].items() %}
           {{ key }} "{{ value }}"
 {% endfor %}
       </Match>
