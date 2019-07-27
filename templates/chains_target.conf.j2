@@ -1,6 +1,6 @@
 {{% if target is mapping %}}
   <Target "{{ target['type'] }}">
-{% for key, value in target['options'].iteritems() %}
+{% for key, value in target['options'].items() %}
    {{ key }} {{ value }}
 {% endfor %}
   </Target>
