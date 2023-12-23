@@ -2,7 +2,7 @@
 - include_vars: "{{ ansible_os_family }}.yml"
 
 # Setup/install tasks.
-- include: install.yml
+- import_tasks: install.yml
 
 - name: Create mysql user
   mysql_user: host="{{ item['host'] | default('localhost') }}" user="{{ item['user'] }}" password="{{ item['pass'] }}" priv="*.*:replication client"
